@@ -1,0 +1,28 @@
+{
+  "name": "dropdown-menu-ctchou",
+  "version": "1.0.0",
+  "description": "Drop Down Menu JS - TOP",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --config webpack.prod.js",
+    "dev": "webpack serve --open --config webpack.dev.js",
+    "deploy": "git subtree push --prefix dist origin gh-pages",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "css-loader": "^7.1.2",
+    "html-webpack-plugin": "^5.6.3",
+    "style-loader": "^4.0.0",
+    "webpack": "^5.96.1",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.1.0",
+    "webpack-merge": "^6.0.1"
+  },
+  "dependencies": {
+    "eslint-config-wesbos": "^4.3.2"
+  }
+}
