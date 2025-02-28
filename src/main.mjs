@@ -22,8 +22,29 @@ function HashMap (capacity_input, load_factor_input) {
           }
     }
 
-    const checkKey = (key) => {
+    const expandCapacity = () => {
+        // grab all entries array
+        // clear existing array/buckets
+        // set capacity to new level
+        // iterate over entries array to add into new array/buckets
+        const allEntries = entries();
+        clear();
+        capacity = capacity * 2;
+        for(let i=0; i< allEntries.length; i++) {
+            // console.log(allEntries[i]);
+            for(let j=0; j< allEntries[i].length; j++) {
+                set(allEntries[i][j][0], allEntries[i][j][1]);
+            }
+            
+        }
+    }
 
+    const checkCapacityUsage = () => {
+        if(size > (capacity * load_factor)) {
+            console.log('size is above capacity');
+            expandCapacity();
+        }
+        return size/capacity;
     }
 
     const set = (key, value) => {
@@ -33,23 +54,17 @@ function HashMap (capacity_input, load_factor_input) {
             newList.append(key, value);
             buckets[index] = newList;
             size += 1;
+            checkCapacityUsage();
         }
         else {
             // const index_list = buckets[index].find(key);
-            
             const targetNode = buckets[index].at(buckets[index].find(key));
             if(targetNode == null) {
-                // const newList = LinkedList();
                 buckets[index].append(key, value);
                 size += 1;
+                checkCapacityUsage();
             }
             else {
-                console.log('index for key: ' + index_list );
-                console.log('target Node: ');
-                console.log(targetNode);
-                console.log('set function for key:' + key);
-                console.log('set function - node:')
-                console.log(targetNode);
                 targetNode.value = value;  //existing key, update with new value
             }
         }
@@ -170,11 +185,11 @@ function HashMap (capacity_input, load_factor_input) {
     }
 
 
-    return {set, get, has, remove, length, clear, values, keys, entries} 
+    return {set, get, has, remove, length, clear, values, keys, entries, checkCapacityUsage} 
 }
 
 
-const test = HashMap(16, 0.8);
+const test = HashMap(16, 0.75);
 // test.set('apple','red');
 // test.get('apple');
 // test.set('apple','green');
@@ -188,33 +203,44 @@ test.set('dog', 'brown')
 test.set('elephant', 'gray')
 test.set('frog', 'green')
 test.set('grape', 'purple')
-console.log('grape value: ' + test.get('grape'));
 test.set('hat', 'black');
-console.log('grape value: ' + test.get('grape'));
 test.set('ice cream', 'white')
 test.set('jacket', 'blue')
 test.set('kite', 'pink')
 test.set('lion', 'golden')
-
-
-
-console.log('all values: ');
-console.log(test.values());
-console.log('all keys:');
-console.log(test.keys());
-
+console.log('total entries: ' + test.length());
+console.log('capacity usage: ' + (test.checkCapacityUsage()));
+console.log('all entries:');
+console.log(test.entries());
+test.set('grape', 'red')
+test.set('ice cream', 'black')
+console.log('total entries: ' + test.length());
+console.log('all entries:');
+console.log(test.entries());
+test.set('moon', 'silver');
+console.log('total entries: ' + test.length());
+console.log('all entries:');
+console.log(test.entries());
+test.set('lion', 'magenta');
+console.log('total entries: ' + test.length());
 console.log('all entries:');
 console.log(test.entries());
 
-console.log('testing has function:')
+// console.log('all values: ');
+// console.log(test.values());
+// console.log('all keys:');
+// console.log(test.keys());
 
-test.remove('pumpkin');
-console.log('has apple: ' +test.has('apple'));
 
-console.log('has pumpkin: ' + test.has('pumpkin'));
-console.log('has green: ' +test.has('green'));
-console.log('total keys stored: ' + test.length());
-console.log('clearing all keys: ');
-test.clear();
-console.log(test.has('apple'));
-console.log('total keys stored: ' + test.length());
+// console.log('testing has function:')
+
+// test.remove('pumpkin');
+// console.log('has apple: ' +test.has('apple'));
+
+// console.log('has pumpkin: ' + test.has('pumpkin'));
+// console.log('has green: ' +test.has('green'));
+// console.log('total keys stored: ' + test.length());
+// console.log('clearing all keys: ');
+// test.clear();
+// console.log(test.has('apple'));
+// console.log('total keys stored: ' + test.length());
