@@ -79,32 +79,31 @@ function LinkedList() {
         
         if(current.key == null) {
             console.log('toString empty list')
-            return 'Error: empty list';
+            return null;
         }
         
-        let listString = '( ' + current.key + ' )';
+        let listString = current.key;
         while(current.nextNode) {
-            listString += ' -> ( ' + current.nextNode.key + ' )';
+            listString += ',' + current.nextNode.key;
             current = current.nextNode;
         }
-        listString += ' -> null';
         return listString;
     }
 
+    // comma delimited list
     const toStringValues = () => {
         let current = headNode;
         
         if(current.key == null) {
             console.log('toString empty list')
-            return 'Error: empty list';
+            return null;
         }
         
-        let listString = '( ' + current.value + ' )';
+        let listString = current.value;
         while(current.nextNode) {
-            listString += ' -> ( ' + current.nextNode.value + ' )';
+            listString += ',' + current.nextNode.value;
             current = current.nextNode;
         }
-        listString += ' -> null';
         return listString;
     }
     const pop = () => {

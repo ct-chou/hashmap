@@ -124,29 +124,82 @@ function HashMap (capacity_input, load_factor_input) {
     }
 
     const values = () => {
-        let all_values = '';
+        let stringValues = '';
 
         for (let i=0; i<capacity; i++) {
             if(buckets[i] != null)
-                all_values += buckets[i].toStringValues();
+                stringValues += buckets[i].toStringValues() + ',';
         }
-        return all_values;
+        // convert comma delimited values to an array
+        if(stringValues == null)
+            return null;
+        const array = stringValues.split(',');
+        return array.slice(0,-1);
+    }
+
+    const keys = () => {
+        let stringKeys = '';
+
+        for (let i=0; i<capacity; i++) {
+            if(buckets[i] != null)
+                stringKeys += buckets[i].toStringKeys() + ',';
+        }
+        // convert comma delimited values to an array
+        if(stringKeys == null)
+            return null;
+        const array = stringKeys.split(',');
+        return array.slice(0,-1);
         
     }
 
-    return {set, get, has, remove, length, clear, values} 
+    const entries = () => {
+        const arrayKeys = keys();
+        const arrayValues = values();
+        let arrayEntries = [];
+        // convert comma delimited values to an array
+        if(arrayKeys == null)
+            return null;
+        for(let i=0; i < arrayKeys.length; i++) {
+            arrayEntries[i] = [arrayKeys[i], arrayValues[i]];
+        }
+        return arrayEntries;
+    }
+
+
+    return {set, get, has, remove, length, clear, values, keys, entries} 
 }
 
 
 const test = HashMap(16, 0.8);
-test.set('apple','red');
-test.get('apple');
-test.set('apple','green');
-test.get('apple');
-test.set('pumpkin','red');
-test.get('pumpkin');
-console.log('all values: ' + test.values());
+// test.set('apple','red');
+// test.get('apple');
+// test.set('apple','green');
+// test.get('apple');
+// test.set('pumpkin','red');
+// test.get('pumpkin');
+test.set('apple', 'red')
+test.set('banana', 'yellow')
+test.set('carrot', 'orange')
+test.set('dog', 'brown')
+test.set('elephant', 'gray')
+test.set('frog', 'green')
+test.set('grape', 'purple')
+test.set('hat', 'black')
+test.set('ice cream', 'white')
+test.set('jacket', 'blue')
+test.set('kite', 'pink')
+test.set('lion', 'golden')
+
+console.log('all values: ');
+console.log(test.values());
+console.log('all keys:');
+console.log(test.keys());
+
+console.log('all entries:');
+console.log(test.entries());
+
 console.log('testing has function:')
+
 test.remove('pumpkin');
 console.log('has apple: ' +test.has('apple'));
 
