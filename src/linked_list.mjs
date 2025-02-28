@@ -65,6 +65,8 @@ function LinkedList() {
     const at = (index) => {
         let current = headNode;
         let count = 0;
+        if(index == null)
+            return null;
         while(count < index) {
             if(current == null)
                 return null;
@@ -106,6 +108,25 @@ function LinkedList() {
         }
         return listString;
     }
+
+    
+    // comma delimited list
+    const toArrayEntries = () => {
+        let current = headNode;
+        
+        if(current.key == null) {
+            console.log('toString empty list')
+            return null;
+        }
+        
+        let arrayAll = [[current.key, current.value]];
+        while(current.nextNode) {
+            arrayAll.push([current.nextNode.key, current.nextNode.value]);
+            current = current.nextNode;
+        }
+        return arrayAll;
+    }
+
     const pop = () => {
         let pop_minus_1 = at(size()-2); //size returns index + 1
         let popped = pop_minus_1.nextNode;
@@ -173,7 +194,7 @@ function LinkedList() {
             return 'error: index out of bound'
     }
 
-    return {append, prepend, size, toStringKeys, toStringValues, head, tail, at, pop, contains, find, removeAt};
+    return {append, prepend, size, toStringKeys, toStringValues, head, tail, at, pop, contains, find, removeAt, toArrayEntries};
 }
 
 export default LinkedList;

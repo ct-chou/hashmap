@@ -35,14 +35,21 @@ function HashMap (capacity_input, load_factor_input) {
             size += 1;
         }
         else {
+            // const index_list = buckets[index].find(key);
+            
             const targetNode = buckets[index].at(buckets[index].find(key));
             if(targetNode == null) {
-                const newList = LinkedList();
-                newList.append(key, value);
-                buckets[index] = newList;
+                // const newList = LinkedList();
+                buckets[index].append(key, value);
                 size += 1;
             }
             else {
+                console.log('index for key: ' + index_list );
+                console.log('target Node: ');
+                console.log(targetNode);
+                console.log('set function for key:' + key);
+                console.log('set function - node:')
+                console.log(targetNode);
                 targetNode.value = value;  //existing key, update with new value
             }
         }
@@ -153,14 +160,11 @@ function HashMap (capacity_input, load_factor_input) {
     }
 
     const entries = () => {
-        const arrayKeys = keys();
-        const arrayValues = values();
         let arrayEntries = [];
         // convert comma delimited values to an array
-        if(arrayKeys == null)
-            return null;
-        for(let i=0; i < arrayKeys.length; i++) {
-            arrayEntries[i] = [arrayKeys[i], arrayValues[i]];
+        for (let i=0; i<capacity; i++) {
+            if(buckets[i] != null)
+                arrayEntries.push(buckets[i].toArrayEntries());
         }
         return arrayEntries;
     }
@@ -184,11 +188,15 @@ test.set('dog', 'brown')
 test.set('elephant', 'gray')
 test.set('frog', 'green')
 test.set('grape', 'purple')
-test.set('hat', 'black')
+console.log('grape value: ' + test.get('grape'));
+test.set('hat', 'black');
+console.log('grape value: ' + test.get('grape'));
 test.set('ice cream', 'white')
 test.set('jacket', 'blue')
 test.set('kite', 'pink')
 test.set('lion', 'golden')
+
+
 
 console.log('all values: ');
 console.log(test.values());
